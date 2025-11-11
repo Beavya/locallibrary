@@ -14,6 +14,7 @@ class Book(models.Model):
     summary = models.TextField(max_length=1000, help_text="Enter a brief description of the book")
     isbn = models.CharField('ISBN',max_length=13, help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
     genre = models.ManyToManyField(Genre, help_text="Select a genre for this book")
+    language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
     def __str__(self):
         return self.title
 
@@ -25,7 +26,6 @@ class BookInstance(models.Model):
     book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
-    language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
 
     LOAN_STATUS = (
         ('m', 'Maintenance'),
