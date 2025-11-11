@@ -14,6 +14,9 @@ def index(request):
     keyword = 'Harry'
     num_books_with_keyword = Book.objects.filter(title__icontains=keyword).count()
 
+    num_visits = request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits + 1
+
     context = {
         'num_books': num_books,
         'num_instances': num_instances,
@@ -23,9 +26,11 @@ def index(request):
         'num_language': num_language,
         'num_books_with_keyword': num_books_with_keyword,
         'keyword': keyword,
+        'num_visits': num_visits,
     }
 
     return render(request, 'index.html', context=context)
+
 
 class BookListView(generic.ListView):
     model = Book
