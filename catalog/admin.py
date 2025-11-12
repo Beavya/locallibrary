@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Author, Genre, Book, BookInstance, Language
 
-
 class BooksInstanceInline(admin.TabularInline):
     model = BookInstance
 
@@ -22,7 +21,6 @@ class BookAdmin(admin.ModelAdmin):
         return ', '.join([genre.name for genre in obj.genre.all()[:3]])
 
     display_genre.short_description = 'Genre'
-
 
 @admin.register(BookInstance)
 class BookInstanceAdmin(admin.ModelAdmin):
